@@ -8,22 +8,27 @@ def process(img, wait=0):
     cv2.imshow("input", img)
 
     # detect_team(img, "red")
+    # edge = cv2.Canny(img, 40, 300)
+    # cv2.imshow("mask", edge)
+    # cv2.moveWindow("mask", 400, 200)
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # cv2.imshow("gray", gray)
 
     res, thresh = cv2.threshold(gray, 80, 255, cv2.THRESH_BINARY)
-    # cv2.imshow("thresh", thresh)
+    cv2.imshow("thresh", thresh)
     cv2.moveWindow("input", 400, 500)
-    # cv2.moveWindow("thresh", 400, 200)
+    cv2.moveWindow("thresh", 400, 200)
 
     ratio = detect_light_dark(thresh)
 
-    if ratio > 0.9:
+    if ratio > 0.7:
         print("This player belongs to the white team\n")
     else:
         print("This player belongs to the blue team\n")
-    # print(ratio)
+    print(ratio)
+
+
     #
     # contours, hierarchy = cv2.findContours(thresh1, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     # len_ls = [len(con) for con in contours]
@@ -63,7 +68,7 @@ def process_img_folder(folder_path):
 
 
 if __name__ == '__main__':
-    path = "../img"
+    path = "../img/frame/blue"
 
     # path = "../video/video6.mp4"
 
