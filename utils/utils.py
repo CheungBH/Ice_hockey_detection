@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def field_detection(img):
+def field_detection(img, op):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     res, thresh1 = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
     contours, hierarchy = cv2.findContours(thresh1, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -10,7 +10,11 @@ def field_detection(img):
     max_contour = contours[len_ls.index(max(len_ls))]
     x, y, w, h = cv2.boundingRect(max_contour)
     height, width = img.shape[0], img.shape[1]
-    return cut_image(img, left=x, right=width-w, top=y, bottom=height-h)
+    if op == "cut":
+        return cut_image(img, left=x, right=width-w, top=y, bottom=height-h)
+    elif op == "draw":
+        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        return img
 
 
 def cut_image(img, bottom=0, top=0, left=0, right=0):

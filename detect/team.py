@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 index_dict = {0: "white", 1: "blue"}
-color2RGB = {"white": (255, 255, 255), "blue": (255, 0, 0)}
+color2RGB = {"white": (255, 255, 255), "blue": (255, 0, 0), "red": (0, 0, 255)}
 
 
 class TeamDetector(object):
@@ -26,14 +26,17 @@ class TeamDetector(object):
             self.person_img.append(np.asarray(self.img[y1: y2, x1: x2]))
 
     def get_team(self):
-        for self.person in self.person_img:
-            self.team.append(self.detect_team())
+        for idx, self.person in enumerate(self.person_img):
+            try:
+                self.team.append(self.detect_team())
+            except:
+                self.team.append("red")
 
     def detect_team(self):
         gray = cv2.cvtColor(self.person, cv2.COLOR_BGR2GRAY)
-        res, thresh = cv2.threshold(gray, 80, 255, cv2.THRESH_BINARY)
+        res, thresh = cv2.threshold(gray, 64, 255, cv2.THRESH_BINARY)
         ratio = self.detect_light_dark(thresh)
-        if ratio > 0.72:
+        if ratio > 0.85:
             return index_dict[0]
         else:
             return index_dict[1]

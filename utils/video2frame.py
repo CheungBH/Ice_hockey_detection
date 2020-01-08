@@ -5,7 +5,7 @@ step = 5
 
 
 class Video2Frame(object):
-    def __init__(self, folder="video3"):
+    def __init__(self, folder="video2"):
         self.folder = folder
         self.video_ls = []
         self.save_folder = "../frame/{}".format(folder)
@@ -20,7 +20,7 @@ class Video2Frame(object):
             ret, frame = cap.read()
             frm += 1
             if ret:
-                if frm % step == 0:
+                if frm == 44:
                     print("Saving the {} frame".format(frm))
                     cv2.imwrite(os.path.join(self.save_folder, "{}_{}.jpg".format(name[:-4], frm)), frame)
                 else:
@@ -37,4 +37,4 @@ class Video2Frame(object):
 
 if __name__ == '__main__':
     VF = Video2Frame()
-    VF.process_video("..\\video\\video3.mp4")
+    VF.process_video("..\\video\\video2.mp4")

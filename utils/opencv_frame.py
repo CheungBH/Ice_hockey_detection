@@ -15,17 +15,17 @@ def process(img, wait=0):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # cv2.imshow("gray", gray)
 
-    res, thresh = cv2.threshold(gray, 80, 255, cv2.THRESH_BINARY)
+    res, thresh = cv2.threshold(gray, 64, 255, cv2.THRESH_BINARY)
     cv2.imshow("thresh", thresh)
     cv2.moveWindow("input", 400, 500)
     cv2.moveWindow("thresh", 400, 200)
 
     ratio = detect_light_dark(thresh)
 
-    if ratio > 0.7:
-        print("This player belongs to the white team\n")
-    else:
-        print("This player belongs to the blue team\n")
+    # if ratio > 0.7:
+    #     print("This player belongs to the white team\n")
+    # else:
+    #     print("This player belongs to the blue team\n")
     print(ratio)
 
 
@@ -63,12 +63,12 @@ def process_video(video_path):
 def process_img_folder(folder_path):
     img_ls = [img_path for img_path in os.listdir(folder_path)]
     for img_name in img_ls:
-        print("Processing {}".format(img_name))
+        # print("Processing {}".format(img_name))
         process(cv2.imread(os.path.join(folder_path, img_name)), wait=500)
 
 
 if __name__ == '__main__':
-    path = "../img/frame/blue"
+    path = "../img/frame/white"
 
     # path = "../video/video6.mp4"
 
