@@ -3,7 +3,7 @@ from utils import utils
 from YOLOv3.detector import YOLOv3
 
 
-video_path = "video/red_yellow/video3.mp4"
+video_path = "video/video2.mp4"
 cap = cv2.VideoCapture(video_path)
 frm = 0
 yolo = YOLOv3("YOLOv3/cfg/yolo_v3.cfg", "YOLOv3/weights/yolov3.weights", "YOLOv3/cfg/coco.names", is_plot=False)

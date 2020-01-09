@@ -5,6 +5,7 @@ import numpy as np
 def field_detection(img, op):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     res, thresh1 = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+    # cv2.imshow("thresh1", thresh1)
     contours, hierarchy = cv2.findContours(thresh1, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     len_ls = [len(con) for con in contours]
     max_contour = contours[len_ls.index(max(len_ls))]
